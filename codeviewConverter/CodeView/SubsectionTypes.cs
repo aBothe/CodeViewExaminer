@@ -199,11 +199,12 @@ namespace CodeViewExaminer.CodeView
 			/// <summary>
 			/// An array of offsets for the line/address mapping tables for each of the
 			/// segments that receive code from this source file.
+			/// Only required for initial analysis.
 			/// </summary>
 			public uint[] baseSrcLn;
 
-			public uint[] starts;
-			public uint[] ends;
+			public uint[] segmentStartOffsets;
+			public uint[] segmentEndOffsets;
 
 			public string SourceFileName;
 
@@ -274,12 +275,12 @@ namespace CodeViewExaminer.CodeView
 				for (int j = 0; j < cSeg2; j++)
 					sfi.baseSrcLn[j] = r.ReadUInt32();
 
-				sfi.starts=new uint[cSeg2];
-				sfi.ends = new uint[cSeg2];
+				sfi.segmentStartOffsets=new uint[cSeg2];
+				sfi.segmentEndOffsets = new uint[cSeg2];
 				for (int j = 0; j < cSeg2; j++)
 				{
-					sfi.starts[j] = r.ReadUInt32();
-					sfi.ends[j] = r.ReadUInt32();
+					sfi.segmentStartOffsets[j] = r.ReadUInt32();
+					sfi.segmentEndOffsets[j] = r.ReadUInt32();
 				}
 
 				sfi.SourceFileName = r.ReadString();

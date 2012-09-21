@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
+using CodeViewExaminer.CodeView;
 using CodeViewExaminer.PortableExecutable;
 
 namespace CodeViewExaminer
@@ -11,25 +11,48 @@ namespace CodeViewExaminer
 	{
 		static void Main(string[] args)
 		{
-			var exe = "HelloWorldTest.exe";
+			var exe = "myprogram.exe";
 
-			var stream = new FileStream(exe, FileMode.Open, FileAccess.Read);
-			var br = new BinaryReader(stream);
+			var emi = ExecutableMetaInfo.ExtractFrom(exe);
 
-			// Read initial headers
-			var peHdr = PeHeaderReader.Read(br);
+			string module;
+			ushort line;
+			emi.TryDetermineCodeLocation(0x00403022, out module, out line);
 
-			// Read out section information
-			var peSectionHeaders = PeSectionReader.ReadSectionHeaders(peHdr, br);
+			Console.WriteLine(module + ":" + line);
 
-			// Read out section data
-			var sections = PeSectionReader.ReadSections(peHdr, 
-				peSectionHeaders, 
-				br, 
-				new DebugSectionReader(),
-				new TlsSectionReader());
+			var sw = new StringWriter();
 
-			return;
+			foreach(var codeSection in emi.CodeSections)
+				if (codeSection is CodeViewDebugSection)
+				{
+					var cv = (CodeViewDebugSection)codeSection;
+
+					foreach (var ss in cv.Data.SubsectionDirectory.Sections)
+					{
+						if (ss is sstSrcModule)
+						{
+							var src = (sstSrcModule)ss;
+
+							foreach (var fi in src.FileInfo)
+							{
+								sw.WriteLine(fi.SourceFileName + ":");
+								for (uint k = 0; k < fi.Segments.Length; k++){
+									var segment = fi.Segments[k];
+									sw.WriteLine("\tSegment #"+k +" ("+fi.segmentStartOffsets[k]  + " - "+ fi.segmentEndOffsets[k]+")");
+									
+									for(int m = 0; m<segment.Lines.Length; m++)
+										sw.WriteLine("\t\tLine "+segment.Lines[m]+" @ 0x"+string.Format("{0:X8} = {0}",segment.Offsets[m]));
+								}
+							}
+						}
+					}
+				}
+
+			sw.Flush();
+			File.WriteAllText(exe + ".log", sw.ToString());
 		}
+
+		
 	}
 }

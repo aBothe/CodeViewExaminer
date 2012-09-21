@@ -51,6 +51,7 @@
     <Compile Include="CodeView\SubsectionData.cs" />
     <Compile Include="CodeView\SubsectionDirectory.cs" />
     <Compile Include="CodeView\SubsectionTypes.cs" />
+    <Compile Include="ExecutableMetaInfo.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="PortableExecutable\DebugSection.cs" />
     <Compile Include="PortableExecutable\PeHeaderReader.cs" />
