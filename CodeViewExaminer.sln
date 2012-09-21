@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeViewExaminer", "codeviewConverter\CodeViewExaminer.csproj", "{069EA428-6430-4234-8170-6DD64CCADC80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeViewExaminer", "CodeViewExaminer\CodeViewExaminer.csproj", "{069EA428-6430-4234-8170-6DD64CCADC80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
