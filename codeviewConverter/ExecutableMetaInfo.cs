@@ -110,12 +110,9 @@ namespace CodeViewExaminer
 			return false;
 		}
 
-		public bool TryGetOffsetByCodeLocation(string module, ushort line, 
-			out uint virtualMemoryOffset, 
-			out bool offsetMatchesLineExactly)
+		public bool TryGetOffsetByCodeLocation(string module, ushort line, out uint virtualMemoryOffset)
 		{
 			virtualMemoryOffset = 0;
-			offsetMatchesLineExactly = false;
 
 			if (sourceModuleSections != null)
 				foreach (var src in sourceModuleSections)
@@ -127,19 +124,14 @@ namespace CodeViewExaminer
 
 								int m = 0;
 								for (; m < segment.Lines.Length; m++)
-									if (line <= segment.Lines[m])
+									if (line == segment.Lines[m])
 									{
-										m--;
-										break;
+										virtualMemoryOffset =
+											PEHeader.OptionalHeader32.ImageBase +
+											PEHeader.OptionalHeader32.BaseOfCode +
+											segment.Offsets[m];
+										return true;
 									}
-
-								offsetMatchesLineExactly = segment.Lines[m] == line;
-
-								virtualMemoryOffset =
-									PEHeader.OptionalHeader32.ImageBase +
-									PEHeader.OptionalHeader32.BaseOfCode +
-									segment.Offsets[m];
-								return true;
 							}
 
 			return false;
