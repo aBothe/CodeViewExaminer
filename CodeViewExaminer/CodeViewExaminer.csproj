@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{069EA428-6430-4234-8170-6DD64CCADC80}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CodeViewExaminer</RootNamespace>
     <AssemblyName>CodeViewExaminer</AssemblyName>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,7 +60,6 @@
     <Compile Include="PortableExecutable\PeHeaderReader.cs" />
     <Compile Include="PortableExecutable\WinntStructs.cs" />
     <Compile Include="PortableExecutable\PeSectionReader.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PortableExecutable\TlsSection.cs" />
   </ItemGroup>

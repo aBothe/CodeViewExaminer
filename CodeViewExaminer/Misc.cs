@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace CodeViewExaminer
 {
-    public class Misc
+    internal class Misc
     {
         /// <summary>
         /// Reads in a block from a file and converts it to the struct
