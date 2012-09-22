@@ -209,6 +209,11 @@ namespace CodeViewExaminer.CodeView
 			public string SourceFileName;
 
 			public SourceSegmentInfo[] Segments;
+
+			public override string ToString()
+			{
+				return SourceFileName;
+			}
 		}
 
 		public struct SourceSegmentInfo

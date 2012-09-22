@@ -260,6 +260,11 @@ namespace CodeViewExaminer
 		/// The flags that describe the characteristics of the section
 		/// </summary>
 		public uint Characteristics;
+
+		public override string ToString()
+		{
+			return Name+" header";
+		}
 	}
 
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]

@@ -75,5 +75,10 @@ namespace CodeViewExaminer.PortableExecutable
 	public abstract class CodeSection
 	{
 		public PeSectionHeader SectionHeader;
+
+		public override string ToString()
+		{
+			return this.SectionHeader.Name+" section";
+		}
 	}
 }
