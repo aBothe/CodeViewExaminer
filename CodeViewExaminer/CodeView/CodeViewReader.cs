@@ -14,6 +14,26 @@ namespace CodeViewExaminer.CodeView
 		BinaryReader r;
 		CodeViewData cvData=new CodeViewData();
 
+		/// <summary>
+		/// Reads debug information from a file handle.
+		/// The hFile parameter has to be closed afterwards manually(!).
+		/// </summary>
+		public static CodeViewData Read(IntPtr hFile, long debugInfoOffset, long debugInfoSize)
+		{
+			if (debugInfoSize == 0)
+				return null;
+
+			using(var file = new FileStream(hFile, FileAccess.Read))
+			using(var r = new BinaryReader(file))
+			{
+				file.Position = debugInfoOffset;
+				var cvReader = new CodeViewReader { r = r };
+				cvReader.DoRead();
+
+				return cvReader.cvData;
+			}
+		}
+
 		public static CodeViewData Read(IMAGE_DEBUG_DIRECTORY ddir,BinaryReader r)
 		{
 			var cvReader = new CodeViewReader { ddir=ddir,	r=r	};
