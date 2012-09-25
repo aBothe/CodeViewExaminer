@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using CodeViewExaminer.CodeView;
 using CodeViewExaminer.PortableExecutable;
@@ -18,7 +17,7 @@ namespace CodeViewExaminer
 		public PeSectionHeader[] SectionHeaders { get; private set; }
 		public CodeSection[] CodeSections { get; private set; }
 
-		private CodeViewDebugSection codeViewSection;
+		public CodeViewDebugSection CodeViewSection { get; private set; }
 		private sstSrcModule[] sourceModuleSections;
 		#endregion
 
@@ -55,11 +54,11 @@ namespace CodeViewExaminer
 			foreach(var codeSection in CodeSections)
 				if (codeSection is CodeViewDebugSection)
 				{
-					codeViewSection = (CodeViewDebugSection)codeSection;
+					CodeViewSection = (CodeViewDebugSection)codeSection;
 
 					// Scan its sections for the sstSrcModule subsection -- in this one, all offset<>line couples are stored
 					var sstSrcModules = new List<sstSrcModule>();
-					foreach (var ss in codeViewSection.Data.SubsectionDirectory.Sections)
+					foreach (var ss in CodeViewSection.Data.SubsectionDirectory.Sections)
 						if (ss is sstSrcModule)
 							sstSrcModules.Add((sstSrcModule)ss);
 					sourceModuleSections = sstSrcModules.ToArray();
