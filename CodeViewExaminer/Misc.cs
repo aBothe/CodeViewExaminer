@@ -12,7 +12,7 @@ namespace CodeViewExaminer
         /// Reads in a block from a file and converts it to the struct
         /// type specified by the template parameter
         /// </summary>
-        public static T FromBinaryReader<T>(BinaryReader reader)
+        public static T FromBinaryReader<T>(BinaryReader reader) where T:struct
         {
             // Read in a byte array
             var bytes = reader.ReadBytes(Marshal.SizeOf(typeof(T)));

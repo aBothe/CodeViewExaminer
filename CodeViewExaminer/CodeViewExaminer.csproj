@@ -57,6 +57,8 @@
     <Compile Include="ExecutableMetaInfo.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="PortableExecutable\DebugSection.cs" />
+    <Compile Include="PortableExecutable\ExportSection.cs" />
+    <Compile Include="PortableExecutable\ImportSectionReader.cs" />
     <Compile Include="PortableExecutable\PeHeaderReader.cs" />
     <Compile Include="PortableExecutable\WinntStructs.cs" />
     <Compile Include="PortableExecutable\PeSectionReader.cs" />

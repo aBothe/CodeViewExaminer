@@ -49,7 +49,10 @@ namespace CodeViewExaminer
 			CodeSections = PeSectionReader.ReadSections(PEHeader, SectionHeaders,
 				br,
 				new DebugSectionReader(),
-				new TlsSectionReader());
+				new ImportSectionReader()
+				//new TlsSectionReader()
+				//,new ExportSectionReader()
+				);
 
 			foreach(var codeSection in CodeSections)
 				if (codeSection is CodeViewDebugSection)
